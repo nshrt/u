@@ -28,7 +28,7 @@
       </b-alert>
 
       <b-alert style="margin:15px;" v-show="linkShow" variant="primary" show>
-        <a id="urlText" href="newUrl" @click.stop.prevent="copyUrl" class="alert-link">{{newUrl }}</a>
+        <a id="urlText" href="newUrl" @click.stop.prevent="copyUrl" class="alert-link">{{ newUrl }}</a>
       </b-alert>
 
       <b-tooltip show target="urlText" placement="top">
@@ -55,7 +55,9 @@ export default {
   data() {
     return {
       oldUrl: "",
-      newUrl: "https://" + window.location.hostname + "/#/" + uuidv4(),
+      // newUrl: "https://" + window.location.hostname + "/short/#/" + uuidv4(),
+      code: uuidv4(),
+      newUrl: "",
       linkShow: false,
       erro: false,
       short: {}
@@ -67,17 +69,17 @@ export default {
         if (validURL(this.oldUrl)) {
           shortRef
             .push({
-              short: { oldUrl: this.oldUrl, newUrl: this.newUrl }
+              short:{oldUrl: this.oldUrl, newUrl: this.code }
             })
             .then(_ => {
               this.linkShow = true;
               this.erro = false;
               this.oldUrl = "";
+              this.newUrl = window.location.hostname + "/#/" + this.code;
             });
         } else {
           this.erro = true;
           this.oldUrl = "";
-          console.log("Invalid URL!");
         }
       } catch (err) {
         alert(err);
@@ -91,7 +93,6 @@ export default {
       try {
         var successful = document.execCommand("copy");
         var msg = successful ? "successful" : "unsuccessful";
-        console.log("Testing code was copied " + msg);
       } catch (err) {
         console.log("Oops, unable to copy");
       }

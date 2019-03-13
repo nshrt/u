@@ -11,9 +11,10 @@
     <h4>
       <b-badge style="margin: 12px;">Short your URLS for free!</b-badge>
     </h4>
-    <router-view/>
+    <router-view v-show="show"/>
     <br>
     <Footer/>
+    <loading :show="show" :label="label" :overlay="overlay"></loading>
   </div>
 </template>
 
@@ -21,38 +22,60 @@
 import Footer from "./components/Footer";
 import router from "./router/index.js";
 import { shortRef } from "./database/firebase";
+import loading from "vue-full-loading";
 
 export default {
   name: "App",
-  components: { Footer },
+  data() {
+    return {
+      show: false,
+      label: "Loading...",
+      timeOut: 2000,
+      overlay: true
+    };
+  },
+  components: { Footer, loading },
+  methods: {
+    showMe() {
+      this.show = true;
+      setTimeout(() => {
+        this.show = false;
+      }, this.timeOut);
+    }
+  },
   mounted() {
     getUrl(window.location.hash);
   }
 };
 function getUrl(url) {
-  var param = url;
-  if (verifyParam(param)) {
-    searchUrl(param);
-  } else {
-    router.push({ path: "/" });
+  var code = new String(url).split("/")[new String(url).split("/").length - 1];
+  try {
+    if (new String(code).length == 5) {
+      searchForCode(code);
+    } else {
+      if (new String(code).length != 0) {
+        console.log("Redirect to index...");
+        router.push("/");
+      }
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
-function verifyParam(param) {
-  if (param.lenght == 5) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function searchUrl(param) {
-  console.log(param);
-  var origin = shortRef.equalTo(param).on("value", function(snapshot) {
-    console.log(snapshot.val());
-    snapshot.forEach(function(data) {
-      console.log(data.key);
+function searchForCode(code) {
+  console.log("Search Code: " + code);
+  var origin = shortRef.orderByChild("short").on("value", function(snapshot) {
+    snapshot.forEach(element => {
+      element.forEach(srt => {
+        if (srt.val().newUrl == code) {
+          console.log("FIND! " + srt.val().newUrl);
+          console.log("Old >" + srt.val().oldUrl);
+          window.location.href = srt.val().oldUrl;
+        }
+      });
     });
   });
+  router.push("/");
 }
 </script>
 
@@ -76,6 +99,6 @@ function searchUrl(param) {
 }
 .badge-secondary {
   color: #fff;
-  background-color: #4d88e4d1;
+  background-color: #3b9aff;
 }
 </style>
