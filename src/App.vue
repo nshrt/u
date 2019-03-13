@@ -49,14 +49,14 @@ export default {
   components: { Footer, Loading },
   methods: {},
   mounted() {
-    this.isLoading = true;
-    getUrl(window.location.hash);
+    getUrl(this, window.location.hash);
   }
 };
-function getUrl(url) {
+function getUrl(app, url) {
   var code = new String(url).split("/")[new String(url).split("/").length - 1];
   try {
     if (new String(code).length == 5) {
+      app.isLoading = true;
       searchForCode(code);
     } else {
       if (new String(code).length != 0) {
