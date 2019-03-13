@@ -9,7 +9,7 @@
     <img id="logo" src="./assets/logo.png">
     <br>
     <h4>
-      <b-badge style="margin: 12px;">Short your URLS for free!</b-badge>
+      <b-badge id="badge-secondary" style="margin: 12px;">Short your URLS for free!</b-badge>
     </h4>
     <router-view v-show="true"/>
     <br>
@@ -83,7 +83,7 @@ function searchForCode(code) {
   text-align: center;
   color: #2c3e50;
 }
-.badge-secondary {
+#badge-secondary {
   color: #2b7d97;
   background-color: #3b9aff00;
 }
