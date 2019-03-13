@@ -69,13 +69,18 @@ export default {
         if (validURL(this.oldUrl)) {
           shortRef
             .push({
-              short:{oldUrl: this.oldUrl, newUrl: this.code }
+              short: { oldUrl: this.oldUrl, newUrl: this.code }
             })
             .then(_ => {
               this.linkShow = true;
               this.erro = false;
               this.oldUrl = "";
-              this.newUrl = window.location.hostname + "/#/" + this.code;
+              if (window.location.hostname.indexOf("github") > -1) {
+                this.newUrl =
+                  window.location.hostname + "/short/#/" + this.code;
+              } else {
+                this.newUrl = window.location.hostname + "/#/" + this.code;
+              }
             });
         } else {
           this.erro = true;
