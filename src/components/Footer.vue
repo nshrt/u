@@ -19,7 +19,7 @@ export default {
 </script>
 <style>
 #footer{
-  margin-top: 22%;
+  margin-top: 128px;
 }
 .white--text {
   color: #125b7f !important;

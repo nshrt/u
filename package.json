@@ -11,11 +11,15 @@
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
+    "@fortawesome/vue-fontawesome": "^0.1.5",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.14",
     "firebase": "^5.8.6",
     "vue": "^2.6.8",
     "vue-full-loading": "^1.2.1",
+    "vue-loading-overlay": "^3.2.0",
     "vue-router": "^3.0.1",
     "vuefire": "^1.4.5",
     "vuetify": "^1.5.6"

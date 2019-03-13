@@ -1,6 +1,15 @@
 <template>
   <div id="app">
     <div>
+      <loading
+        :active.sync="isLoading"
+        :is-full-page="fullPage"
+        :height="height"
+        :width="width"
+        :color="color"
+        :loader="loader"
+        :background-color="bgColor"
+      ></loading>
       <b-navbar id="navbar" toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="#">Short your url</b-navbar-brand>
       </b-navbar>
@@ -11,7 +20,7 @@
     <h4>
       <b-badge id="badge-secondary" style="margin: 12px;">Short your URLS for free!</b-badge>
     </h4>
-    <router-view v-show="true"/>
+    <router-view v-show="!isLoading"/>
     <br>
     <Footer/>
   </div>
@@ -21,15 +30,26 @@
 import Footer from "./components/Footer";
 import router from "./router/index.js";
 import { shortRef } from "./database/firebase";
-
+import Loading from "vue-loading-overlay";
+// Import stylesheet
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      isLoading: false,
+      fullPage: false,
+      loader: "bars",
+      color: "#007bff",
+      bgColor: "#ffffff",
+      height: 38,
+      width: 38
+    };
   },
-  components: { Footer },
+  components: { Footer, Loading },
   methods: {},
   mounted() {
+    this.isLoading = true;
     getUrl(window.location.hash);
   }
 };
@@ -62,6 +82,7 @@ function searchForCode(code) {
     });
   });
   router.push("/");
+  console.log("Url not found !");
 }
 </script>
 

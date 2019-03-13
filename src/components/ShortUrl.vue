@@ -76,8 +76,7 @@ export default {
               this.erro = false;
               this.oldUrl = "";
               if (window.location.hostname.indexOf("github") > -1) {
-                this.newUrl =
-                  window.location.hostname + "/short/#/" + this.code;
+                this.newUrl = window.location.hostname + "/u/#/" + this.code;
               } else {
                 this.newUrl = window.location.hostname + "/#/" + this.code;
               }
@@ -91,6 +90,7 @@ export default {
       }
     },
     copyUrl() {
+
       let testingCodeToCopy = document.querySelector("#copyUrlInput");
       testingCodeToCopy.setAttribute("type", "text"); // 不是 hidden 才能複製
       testingCodeToCopy.select();
@@ -105,8 +105,10 @@ export default {
       /* unselect the range */
       testingCodeToCopy.setAttribute("type", "hidden");
       window.getSelection().removeAllRanges();
-    }
+    },
+
   },
+
   components: {
     Footer
   }
