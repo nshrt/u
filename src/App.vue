@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar id="navbar" toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="#">Short your url</b-navbar-brand>
       </b-navbar>
     </div>
@@ -76,7 +76,7 @@ function searchForCode(code) {
 #logo {
   margin-top: 60px;
 }
-.navbar {
+#navbar {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
