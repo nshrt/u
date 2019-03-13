@@ -11,10 +11,9 @@
     <h4>
       <b-badge style="margin: 12px;">Short your URLS for free!</b-badge>
     </h4>
-    <router-view v-show="show"/>
+    <router-view v-show="true"/>
     <br>
     <Footer/>
-    <loading :show="show" :label="label" :overlay="overlay"></loading>
   </div>
 </template>
 
@@ -22,27 +21,14 @@
 import Footer from "./components/Footer";
 import router from "./router/index.js";
 import { shortRef } from "./database/firebase";
-import loading from "vue-full-loading";
 
 export default {
   name: "App",
   data() {
-    return {
-      show: false,
-      label: "Loading...",
-      timeOut: 2000,
-      overlay: true
-    };
+    return {};
   },
-  components: { Footer, loading },
-  methods: {
-    showMe() {
-      this.show = true;
-      setTimeout(() => {
-        this.show = false;
-      }, this.timeOut);
-    }
-  },
+  components: { Footer },
+  methods: {},
   mounted() {
     getUrl(window.location.hash);
   }
@@ -98,7 +84,7 @@ function searchForCode(code) {
   color: #2c3e50;
 }
 .badge-secondary {
-  color: #fff;
-  background-color: #3b9aff;
+  color: #2b7d97;
+  background-color: #3b9aff00;
 }
 </style>
